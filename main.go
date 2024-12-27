@@ -133,6 +133,10 @@ func (d *Driver) ReadAll(collection string)([]string, error) {
 
 	dir := filepath.Join(d.dir, collection)
 
+	if _, err := stat(dir); err != nil {
+		return nil, err
+	}
+
 	files, err := ioutil.ReadDir(dir)
 
 	if err != nil {
@@ -158,8 +162,29 @@ func (d *Driver) ReadAll(collection string)([]string, error) {
 	return records, nil
 }
 
-func (d *Driver) Delete() error {
-	
+func (d *Driver) Delete(collection, resource string) error {
+	if collection == "" {
+		return fmt.Errorf("collection cannot be empty")
+	}
+
+	path := filepath.Join(collection, resource)
+
+	mutex := d.getOrCreateMutex(collection)
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	dir := filepath.Join(d.dir, path)
+
+	switch fi, err := stat(dir);  {
+		case fi == nil, err != nil:
+			return fmt.Errorf("resource does not exist")
+		case fi.Mode().IsDir():
+			return os.RemoveAll(dir)
+		case fi.Mode().IsRegular():
+			return os.RemoveAll(dir + ".json")
+	}
+
+	return nil
 }
 
 func (d *Driver) getOrCreateMutex(collection string) *sync.Mutex {
@@ -254,11 +279,11 @@ func main() {
 
 	fmt.Println("All Users", allUsers)
 
-	// if err := db.Delete("user", "John"); err != nil {
-	// 	fmt.Println("Error", err)
-	// }
+	if err := db.Delete("users", "May"); err != nil {
+		fmt.Println("Error: ", err)
+	}
 
-	// if err := db.Delete("user", ""); err != nil {
-	// 	fmt.Println("Error", err)
-	// }
+	if err := db.Delete("user", ""); err != nil {
+		fmt.Println("Error", err)
+	}
 }

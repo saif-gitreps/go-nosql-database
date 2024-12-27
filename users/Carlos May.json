@@ -1,0 +1,12 @@
+{
+	"Name": "Carlos May",
+	"Age": 55,
+	"Contact": "1234067890",
+	"Company": "GQR Inc",
+	"Address": {
+		"City": "Mayok",
+		"State": "IL",
+		"Country": "USA",
+		"Pincode": 60345
+	}
+}

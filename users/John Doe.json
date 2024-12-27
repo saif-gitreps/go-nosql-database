@@ -1,0 +1,12 @@
+{
+	"Name": "John Doe",
+	"Age": 30,
+	"Contact": "1234567490",
+	"Company": "ABC Inc",
+	"Address": {
+		"City": "New York",
+		"State": "NY",
+		"Country": "USA",
+		"Pincode": 10001
+	}
+}

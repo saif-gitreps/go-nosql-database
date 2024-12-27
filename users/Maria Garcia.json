@@ -1,0 +1,12 @@
+{
+	"Name": "Maria Garcia",
+	"Age": 45,
+	"Contact": "1234567890",
+	"Company": "MQR Inc",
+	"Address": {
+		"City": "Posto",
+		"State": "IL",
+		"Country": "USA",
+		"Pincode": 60089
+	}
+}

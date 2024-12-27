@@ -1,0 +1,12 @@
+{
+	"Name": "John Smith",
+	"Age": 35,
+	"Contact": "1234767890",
+	"Company": "PQR Inc",
+	"Address": {
+		"City": "Chicago",
+		"State": "IL",
+		"Country": "USA",
+		"Pincode": 60007
+	}
+}
